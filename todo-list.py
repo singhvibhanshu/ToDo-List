@@ -1,14 +1,16 @@
-import json
+import json  # Importing JSON module for file handling
 
-file_name = "todo_list.json"
+file_name = "todo_list.json"  # File to store tasks
 
+# Function to load tasks from the JSON file
 def load_tasks():
     try:
         with open(file_name, 'r') as file:
             return json.load(file)
     except:
-        return {"tasks": []}
+        return {"tasks": []}  # Return an empty task list if the file doesn't exist
 
+# Function to save tasks to the JSON file
 def save_tasks(tasks):
     try:
         with open(file_name, 'w') as file:
@@ -16,6 +18,7 @@ def save_tasks(tasks):
     except:
         print("Failed to save.")
 
+# Function to display the task list
 def view_tasks(tasks):
     task_list = tasks["tasks"]
     if len(task_list) == 0:
@@ -26,6 +29,7 @@ def view_tasks(tasks):
             status = "[Completed]" if task["complete"] else "[Pending]"
             print(f"{index + 1}. {task['description']} | {status}")
 
+# Function to add a new task
 def create_tasks(tasks):
     description = input("Enter the task description: ").strip()
     if description:
@@ -35,6 +39,7 @@ def create_tasks(tasks):
     else:
         print("Description cannot be empty.")
 
+# Function to mark a task as complete
 def mark_task_as_complete(tasks):
     view_tasks(tasks)
     try:
@@ -48,6 +53,7 @@ def mark_task_as_complete(tasks):
     except:
         print("Enter a valid number.")
 
+# Function to mark a task as incomplete
 def mark_task_as_incomplete(tasks):
     view_tasks(tasks)
     try:
@@ -61,12 +67,13 @@ def mark_task_as_incomplete(tasks):
     except:
         print("Enter a valid number.")
 
+# Function to delete a task
 def delete_task(tasks):
     view_tasks(tasks)
     try:
         task_number = int(input("Enter the task number to delete: ").strip())
         if 1 <= task_number <= len(tasks["tasks"]):
-            tasks["tasks"].pop(task_number - 1)
+            tasks["tasks"].pop(task_number - 1)  # Remove the selected task from the list
             save_tasks(tasks)
             print("Task deleted successfully.")
         else:
@@ -74,10 +81,12 @@ def delete_task(tasks):
     except:
         print("Enter a valid number.")
 
+# Main function to run the To-Do List manager
 def main():
-    tasks = load_tasks()
+    tasks = load_tasks()  # Load tasks from the file
 
     while True:
+        # Display menu options
         print("\nTo-Do List Manager!")
         print("01: View Tasks.")
         print("02: Add Task.")
@@ -88,6 +97,7 @@ def main():
 
         choice = input("Enter your choice: ").strip()
 
+        # Handle user choices
         if choice == "01":
             view_tasks(tasks)
         elif choice == "02":
@@ -105,4 +115,4 @@ def main():
             print("Invalid choice. Please try again!")
 
 if __name__ == "__main__":
-    main()
+    main()  # Run the main function
