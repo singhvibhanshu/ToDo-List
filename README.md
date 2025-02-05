@@ -24,7 +24,7 @@ A simple command-line To-Do List Manager built using Python. It allows users to 
 ## Usage
 Run the script using:
 ```sh
-python todo_list.py
+python todo-list.py
 ```
 Follow the on-screen instructions to interact with the To-Do List Manager.
 
