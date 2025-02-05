@@ -39,7 +39,7 @@ def mark_task_as_complete(tasks):
     view_tasks(tasks)
     try:
         task_number = int(input("Enter the task number to mark as complete: ").strip())
-        if 1 <= task_number <= len(tasks):
+        if 1 <= task_number <= len(tasks["tasks"]):
             tasks["tasks"][task_number - 1]["complete"] = True
             save_tasks(tasks)
             print("Task marked as complete.")
@@ -48,16 +48,43 @@ def mark_task_as_complete(tasks):
     except:
         print("Enter a valid number.")
 
+def mark_task_as_incomplete(tasks):
+    view_tasks(tasks)
+    try:
+        task_number = int(input("Enter the task number to mark as incomplete: ").strip())
+        if 1 <= task_number <= len(tasks["tasks"]):
+            tasks["tasks"][task_number - 1]["complete"] = False
+            save_tasks(tasks)
+            print("Task marked as incomplete.")
+        else:
+            print("Invalid task number.")
+    except:
+        print("Enter a valid number.")
+
+def delete_task(tasks):
+    view_tasks(tasks)
+    try:
+        task_number = int(input("Enter the task number to delete: ").strip())
+        if 1 <= task_number <= len(tasks["tasks"]):
+            tasks["tasks"].pop(task_number - 1)
+            save_tasks(tasks)
+            print("Task deleted successfully.")
+        else:
+            print("Invalid task number.")
+    except:
+        print("Enter a valid number.")
+
 def main():
     tasks = load_tasks()
-    print(tasks)
 
     while True:
         print("\nTo-Do List Manager!")
         print("01: View Tasks.")
-        print("02: Add Tasks.")
-        print("03: Complete Tasks.")
-        print("04: Exit.")
+        print("02: Add Task.")
+        print("03: Complete Task.")
+        print("04: Mark Task as Incomplete.")
+        print("05: Delete Task.")
+        print("06: Exit.")
 
         choice = input("Enter your choice: ").strip()
 
@@ -68,7 +95,14 @@ def main():
         elif choice == "03":
             mark_task_as_complete(tasks)
         elif choice == "04":
+            mark_task_as_incomplete(tasks)
+        elif choice == "05":
+            delete_task(tasks)
+        elif choice == "06":
             print("GoodBye!")
             break
         else:
             print("Invalid choice. Please try again!")
+
+if __name__ == "__main__":
+    main()
